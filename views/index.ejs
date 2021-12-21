@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Home</title>
+</head>
+<body>
+    <div class="field">
+    <form class="form">
+        <h4>File Upload</h4><br>
+        <div class="input">
+        <label>Name</label><br>
+        <input type="text" id="name" class="form-input"><br>
+        <label>Price</label><br>
+        <input type="number" id="price" class="form-input"><br>
+        <label>Image</label><br>
+        <input type="file" id="image" ><br>
+        <button type="submit" class="btn btn-block">Add Product</button>
+    </div>
+</form>
+</div>
+<section>
+    <div class="container"></div>
+</section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js" integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const form = document.querySelector('.form')
+        const formName = document.querySelector('#name')
+        const formPrice = document.querySelector('#price')
+        const formImage = document.querySelector('#image')
+        const formContainer = document.querySelector('.container')
+     
+        let imagevalue;
+
+formImage.addEventListener('change', async(e)=>{
+
+    const imageFile = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', imageFile)//keys and value
+    try {
+
+        const {data:{image:{src}}} = await axios.post('api/v1/product/uploads', formData,{
+            headers:{'Content-Type':'multipart/form-data'}
+
+        })
+        imagevalue = src
+    } catch (error) {
+        imagevalue = null
+        
+    }
+})
+
+
+async function fetchproduct(){
+    try {
+        const {data:{get_all}} = await axios.get('api/v1/product')
+        const productDOM = get_all.map((product)=>{
+            const {_id:taskID} = product
+            return `<div class="product">
+                <img src="${product.image}" alt="${product.name}" class="img">
+                <footer>
+                <p>${product.name}</p>
+                <span>&#8369;${product.price}</span>
+                </footer>
+                <button type="button" class="btn-delete" data-id="${taskID}">Delete
+                </button></div>`
+                
+                
+            }).join('')
+            formContainer.innerHTML = productDOM
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    fetchproduct()
+    
+
+    formContainer.addEventListener('click', async (e) => {
+          if (e.target.classList.contains('btn-delete')) {
+                const id = e.target.dataset.id
+                try {
+                      await axios.delete(`/api/v1/product/${id}`)
+                     fetchproduct()
+                     
+                    } catch (error) {
+                          console.log(error)
+                        }
+                      }           
+})
+
+
+    form.addEventListener('submit', async(e) =>{
+                    e.preventDefault()
+                    const nameValue = formName.value
+                    const priceValue = formPrice.value
+                    
+                    try {
+                        const product = ({name:nameValue, price:priceValue,image:imagevalue})
+                       await axios.post('api/v1/product', product)
+                        
+                        fetchproduct()
+                        if(product.status === 200){
+                           formName.value = ''
+                           formPrice.value = ''
+                           formImage.value = ''
+                        }
+                    } catch (error) {
+                        
+                    }
+                })
+</script>
+</body>
+</html>

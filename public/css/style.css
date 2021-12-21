@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 5em;
+}
+
+.field form {
+  padding: 1em;
+  border-radius: 2em;
+  -webkit-box-shadow: 0px 3px 10px #c3c4c3;
+          box-shadow: 0px 3px 10px #c3c4c3;
+}
+
+.field form h4 {
+  font-size: 2em;
+  color: #fa65ab;
+  text-align: center;
+}
+
+.field form .input {
+  line-height: 2em;
+}
+
+.field form .form-input {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  border-radius: 2em;
+  background: #dfeaff;
+  outline: none;
+  border: none;
+  font-size: 1em;
+}
+
+.field form input::-webkit-file-upload-button {
+  width: 10em;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1em;
+  padding: 0.5em;
+  color: #fff;
+  border-radius: 2em;
+  background: -webkit-gradient(linear, left top, left bottom, from(#d48ffc));
+  background: linear-gradient(#d48ffc);
+  cursor: pointer;
+}
+
+.field form .btn {
+  width: 100%;
+  margin-top: 1em;
+  border: none;
+  font-size: 1em;
+  padding: 0.5em;
+  color: #fff;
+  border-radius: 2em;
+  background: #7ac0f8;
+  cursor: pointer;
+}
+
+section {
+  position: relative;
+}
+
+.container {
+  padding: 2em;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  gap: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .product {
+  text-align: center;
+  padding: 3em;
+  border-radius: 1em;
+  -webkit-box-shadow: 0px 3px 30px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 3px 30px rgba(0, 0, 0, 0.1);
+}
+
+.container .product img {
+  height: 175px;
+  width: 15em;
+}
+
+.container .product .btn-delete {
+  padding: 1em;
+  border: none;
+  border-radius: 1em;
+  background: #ff7a7a;
+  color: #fff;
+  margin-top: 1em;
+  cursor: pointer;
+}
+/*# sourceMappingURL=style.css.map */
